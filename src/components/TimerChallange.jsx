@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function TimerChallange({ title, targetTime }) {
   const [timerStarted, setTimerStarted] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
-  let timer;
+  const timer = useRef();
 
   function handleStart() {
-    timer = setTimeout(() => {
+    timer.current = setTimeout(() => {
       setTimerExpired(true);
     }, targetTime * 1000);
 
@@ -14,8 +14,7 @@ export default function TimerChallange({ title, targetTime }) {
   }
 
   function handleStop() {
-    clearTimeout(timer);
-    setTimerStarted(false);
+    clearTimeout(timer.current);
   }
 
   return (
